@@ -58,7 +58,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .call(bottomAxis);
   chartGroup.append("g")
     .call(leftAxis);
-  // Create code to build the bar chart using the tvData.
+  // Create code to build the bar chart using health data extracted 
   chartGroup.selectAll("circle")
     .data(healthData)
     .enter()
