@@ -1,10 +1,10 @@
 // Define are dimensions, chart's margins and dimensions of chart area (using activiy 2.3 as example)
-var svgWidth = 800;
-var svgHeight = 400;
+var svgWidth = 700;
+var svgHeight = 300;
 var margin = {
-  top: 20,
+  top: 10,
   right: 40,
-  bottom: 50,
+  bottom: 10,
   left: 20
 };
 // Define dimensions of the chart area
@@ -63,10 +63,35 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .data(healthData)
     .enter()
     .append("circle")
-    .attr("cx", d => xLinearScale(d.healthcare +1.5))
-    .attr("cy", d => yLinearScale(d.poverty +0.3))
+    .attr("cx", d => xLinearScale(d.healthcare ))
+    .attr("cy", d => yLinearScale(d.poverty ))
     .attr("r", 8)
     .attr("fill", "#69b3a2")
-    .attr("opacity", .75)
-
+    .attr("opacity", .70);
+  // text with in circles
+  chartGroup.selectAll("text.text-circles")
+    .data(healthData)
+    .enter()
+    .append("text")
+    .classed("text-circles",true)
+    .text(d => d.abbr)
+    .attr("y", d => yLinearScale(d.healthcare))
+    .attr("x", d => xLinearScale(d.poverty))
+    .attr("text-anchor","middle")
+    .attr("font-size","10px");
+  // set y axis
+  chartGroup.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", margin.left - 50)
+    .attr("x", 0 - (height / 2))
+    .attr("dy", "1em")
+    .classed("aText", true)
+    .text("Lacking Healthcare (%)");
+  // set x axis
+  chartGroup.append("text")
+    .attr("y", height + margin.bottom)
+    .attr("x", width)
+    .attr("dy", "1em")
+    .classed("aText", true)
+    .text("Poverty Rate (%)");  
 });
