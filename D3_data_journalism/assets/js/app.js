@@ -1,33 +1,29 @@
 // Define are dimensions, chart's margins and dimensions of chart area (using activiy 2.3 as example)
-var svgWidth = 960;
-var svgHeight = 500;
+var svgWidth = 800;
+var svgHeight = 400;
 var margin = {
   top: 20,
   right: 40,
-  bottom: 80,
-  left: 100
+  bottom: 50,
+  left: 20
 };
 // Define dimensions of the chart area
 var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
-// Select body, append SVG area to it, and set the dimensions
+// Create an SVG wrapper, append an SVG group that will hold our chart,and shift the latter by left and top margins.
 var svg = d3
-  .select(".scatter")
+  .select("#scatter")
   .append("svg")
   .attr("height", svgHeight)
   .attr("width", svgWidth);
-// Append a group to the SVG area and shift ('translate') it to the right and down to adhere
-// to the margins set in the "chartMargin" object.
+// Append SVG group
 var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
-d3.select("body").append("div").attr("class", "tooltip").style("opacity", 0);
-
-// Load data from hours-of-tv-watched.csv
+// Load data from csv file
 d3.csv("assets/data/data.csv").then(function(healthData) {
   // Print the health data
   console.log(healthData);
-  
+  //function to extract health data
   healthData.forEach(function(data) {
     data.poverty = +data.poverty;
     data.healthcare = +data.healthcare;
@@ -71,7 +67,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .append("circle")
     .attr("cx", d => xLinearScale(d.healthcare +1.5))
     .attr("cy", d => yLinearScale(d.poverty +0.3))
-    .attr("r", 2)
+    .attr("r", 10)
     .attr("fill", "#69b3a2")
     .attr("opacity", .8)
 
