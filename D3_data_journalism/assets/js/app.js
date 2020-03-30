@@ -31,29 +31,27 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
   // Create scale functions
   var xLinearScale = d3.scaleLinear().range([0, svgWidth]);
   var yLinearScale = d3.scaleLinear().range([svgHeight, 0]);
-  //  creating axis func.
+  //  creating axis function, set x/y minimums & max
   var bottomAxis = d3.axisBottom(xLinearScale);
   var leftAxis = d3.axisLeft(yLinearScale);
-  var xMin;
-  var xMax;
-  var yMin;
-  var yMax;
-  xMin = d3.min(healthData, function(data) {
+  var xMinimum;
+  var xMaximum;
+  var yMinimum;
+  var yMaximum;
+  xMinimum = d3.min(healthData, function(data) {
       return data.healthcare;
   });
-  xMax = d3.max(healthData, function(data) {
+  xMaximum = d3.max(healthData, function(data) {
       return data.healthcare;
   });
-  yMin = d3.min(healthData, function(data) {
+  yMinimum = d3.min(healthData, function(data) {
       return data.poverty;
   });
-  yMax = d3.max(healthData, function(data) {
+  yMaximum = d3.max(healthData, function(data) {
       return data.poverty;
   });
-  xLinearScale.domain([xMin, xMax]);
-  yLinearScale.domain([yMin, yMax]);
-  console.log(xMin);
-  console.log(yMax);
+  xLinearScale.domain([xMinimum, xMaximum]);
+  yLinearScale.domain([yMinimum, yMaximum]);
   // Append axis
   chartGroup.append("g")
     .attr("transform", `translate(0, ${svgHeight})`)
@@ -67,8 +65,8 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .append("circle")
     .attr("cx", d => xLinearScale(d.healthcare +1.5))
     .attr("cy", d => yLinearScale(d.poverty +0.3))
-    .attr("r", 10)
+    .attr("r", 8)
     .attr("fill", "#69b3a2")
-    .attr("opacity", .8)
+    .attr("opacity", .75)
 
 });
