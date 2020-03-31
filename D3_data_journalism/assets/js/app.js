@@ -40,16 +40,16 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
   var yMinimum;
   var yMaximum;
   xMinimum = d3.min(healthData, function(data) {
-      return data.poverty;
+      return data.poverty -1;
   });
   xMaximum = d3.max(healthData, function(data) {
-      return data.poverty;
+      return data.poverty +1;
   });
   yMinimum = d3.min(healthData, function(data) {
-      return data.healthcare;
+      return data.healthcare -1;
   });
   yMaximum = d3.max(healthData, function(data) {
-      return data.healthcare;
+      return data.healthcare +1;
   });
   //print mins and max to console
   console.log(xMaximum);
@@ -71,7 +71,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .append("circle")
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.healthcare))
-    .attr("r", 10)
+    .attr("r", 9)
     .attr("fill", "#16ABCC")
     .attr("opacity", .70);
   // add texts to the circles
