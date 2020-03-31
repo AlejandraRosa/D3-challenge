@@ -92,6 +92,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
       .text("Lacks Healthcare (%)")
       .attr("transform", "rotate(-90)")
       .attr("y", 10)
+      .attr("x", -120)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
       ;
@@ -101,7 +102,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
       .text("In Poverty Rate (%)")
       .attr("transform", "translate(0," + height + ")")
       .attr("class", "label")
-      .attr("x", width - 250)
+      .attr("x", width - 200)
       .attr("y", 70)
       .style("text-anchor", "end")
 ;
