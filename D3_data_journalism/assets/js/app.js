@@ -60,8 +60,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
   xLinearScale.domain([xMinimum, xMaximum]);
   yLinearScale.domain([yMinimum, yMaximum]);
   // Append x-axis
-  chartGroup.append("g")
-    .attr("transform", `translate(0, ${height})`)
+  chartGroup.append("g").attr("transform", `translate(0, ${height})`)
     .call(xAxis);
   // Append y-axis
   chartGroup.append("g").call(yAxis);
@@ -72,18 +71,18 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .append("circle")
     .attr("cx", d => xLinearScale(d.healthcare ))
     .attr("cy", d => yLinearScale(d.poverty ))
-    .attr("r", 8)
+    .attr("r", 10)
     .attr("fill", "#16ABCC")
-    .attr("opacity", .60);
+    .attr("opacity", .70);
   // add texts to the circles
   chartGroup.selectAll("text.text-circles")
     .data(healthData)
     .enter()
     .append("text")
-    .classed("text-circles",true)
+    .classed("stateText", true)
     .text(d => d.abbr)
-    .attr("y", d => yLinearScale(d.healthcare) + -100)
-    .attr("x", d => xLinearScale(d.poverty) + 20)
+    .attr("y", d => yLinearScale(d.poverty))
+    .attr("x", d => xLinearScale(d.healthcare))
     .attr("text-anchor","middle")
     .attr("font-size","8px");
   //http://bl.ocks.org/weiglemc/6185069
