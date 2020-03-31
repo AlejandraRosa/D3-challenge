@@ -1,6 +1,6 @@
 // Define are dimensions, chart's margins and dimensions of chart area (using activiies from D3 day 3 as example)
-var svgWidth = 750;
-var svgHeight = 400;
+var svgWidth = 700;
+var svgHeight = 500;
 var margin = {
   top: 30,
   right: 20,
@@ -89,7 +89,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
   // set y axis
   svg.append("text")
       .attr("class", "y axis")
-      .text("Lacking Healthcare (%)")
+      .text("Lacks Healthcare (%)")
       .attr("transform", "rotate(-90)")
       .attr("y", 10)
       .attr("dy", ".71em")
@@ -98,7 +98,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
   // set x axis
   svg.append("text")
       .attr("class", "x axis")
-      .text("Poverty Rate (%)")
+      .text("In Poverty Rate (%)")
       .attr("transform", "translate(0," + height + ")")
       .attr("class", "label")
       .attr("x", width - 250)
