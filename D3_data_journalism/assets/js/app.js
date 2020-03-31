@@ -1,11 +1,11 @@
 // Define are dimensions, chart's margins and dimensions of chart area (using activiies from D3 day 3 as example)
 var svgWidth = 750;
-var svgHeight = 300;
+var svgHeight = 400;
 var margin = {
-  top: 10,
-  right: 30,
-  bottom: 5,
-  left: 20
+  top: 30,
+  right: 20,
+  bottom: 50,
+  left: 50
 };
 // Define dimensions of the chart area
 var width = svgWidth - margin.left - margin.right;
@@ -28,10 +28,10 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     data.poverty = +data.poverty;
     data.healthcare = +data.healthcare;
   });
-  // Creating scales for the chart
-  var xLinearScale = d3.scaleLinear().range([0, svgWidth]);
-  var yLinearScale = d3.scaleLinear().range([svgHeight, 0]);
-  //  creating the axes
+  // set the ranges
+  var xLinearScale = d3.scaleLinear().range([0, width]);
+  var yLinearScale = d3.scaleLinear().range([height, 0]);
+  //  define the axes
   var xAxis = d3.axisBottom(xLinearScale);
   var yAxis = d3.axisLeft(yLinearScale);
   //set x/y minimums & max
@@ -74,34 +74,36 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .attr("cy", d => yLinearScale(d.poverty ))
     .attr("r", 8)
     .attr("fill", "#16ABCC")
-    .attr("opacity", .70);
-  // text with in circles
+    .attr("opacity", .60);
+  // add texts to the circles
   chartGroup.selectAll("text.text-circles")
     .data(healthData)
     .enter()
     .append("text")
     .classed("text-circles",true)
     .text(d => d.abbr)
-    .attr("y", d => yLinearScale(d.healthcare))
-    .attr("x", d => xLinearScale(d.poverty))
+    .attr("y", d => yLinearScale(d.healthcare) + -100)
+    .attr("x", d => xLinearScale(d.poverty) + 20)
     .attr("text-anchor","middle")
     .attr("font-size","8px");
   //http://bl.ocks.org/weiglemc/6185069
   // set y axis
   svg.append("text")
-      .attr("class", "label")
+      .attr("class", "y axis")
+      .text("Lacking Healthcare (%)")
       .attr("transform", "rotate(-90)")
-      .attr("y", 6)
+      .attr("y", 10)
       .attr("dy", ".71em")
-      .style("text-anchor", "middle")
-      .text("Lacking Healthcare (%)");
+      .style("text-anchor", "end")
+      ;
   // set x axis
   svg.append("text")
       .attr("class", "x axis")
+      .text("Poverty Rate (%)")
       .attr("transform", "translate(0," + height + ")")
       .attr("class", "label")
-      .attr("x", width)
-      .attr("y", -6)
-      .style("text-anchor", "middle")
-      .text("Poverty Rate (%)");
+      .attr("x", width - 250)
+      .attr("y", 70)
+      .style("text-anchor", "end")
+;
 });
