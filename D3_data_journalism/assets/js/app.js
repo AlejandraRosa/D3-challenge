@@ -67,7 +67,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .attr("cx", d => xLinearScale(d.healthcare ))
     .attr("cy", d => yLinearScale(d.poverty ))
     .attr("r", 8)
-    .attr("fill", "#69b3a2")
+    .attr("fill", "#16ABCC")
     .attr("opacity", .70);
   // text with in circles
   chartGroup.selectAll("text.text-circles")
@@ -79,21 +79,26 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .attr("y", d => yLinearScale(d.healthcare))
     .attr("x", d => xLinearScale(d.poverty))
     .attr("text-anchor","middle")
-    .attr("font-size","5px");
+    .attr("font-size","8px");
+  //http://bl.ocks.org/weiglemc/6185069
   // set y axis
-  chartGroup.append("text")
-    .attr("transform", "rotate(-90)")
-    // .attr("y", margin.left - 50)
-    // .attr("x", 0 - (height / 2))
-    // .attr("dy", "1em")
-    // .classed("aText", true)
-    .text("Lacking Healthcare (%)");
+  chartGroup.append("g")
+    .attr("class", "y axis")
+    .call(yAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Lacking Healthcare (%)");
   // set x axis
-  chartGroup.append("text")
+  chartGroup.append("g")
     // .attr("y", height + margin.bottom)
     // .attr("x", width)
     // .attr("dy", "1em")
     // .classed("aText", true)
+    style("text-anchor", "end")
     .text("Poverty Rate (%)");  
  
   }).catch(function(error) {
