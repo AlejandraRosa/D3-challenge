@@ -81,15 +81,15 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .append("text")
     .classed("stateText", true)
     .text(d => d.abbr)
-    .attr("y", d => yLinearScale(d.poverty))
     .attr("x", d => xLinearScale(d.healthcare))
+    .attr("y", d => yLinearScale(d.poverty))
     .attr("text-anchor","middle")
     .attr("font-size","8px");
   //http://bl.ocks.org/weiglemc/6185069
   // set y axis
   svg.append("text")
       .attr("class", "y axis")
-      .text("Lacking Healthcare (%)")
+      .text("Poverty Rate (%)")
       .attr("transform", "rotate(-90)")
       .attr("y", 10)
       .attr("dy", ".71em")
@@ -98,7 +98,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
   // set x axis
   svg.append("text")
       .attr("class", "x axis")
-      .text("Poverty Rate (%)")
+      .text("Lacking Healthcare (%)")
       .attr("transform", "translate(0," + height + ")")
       .attr("class", "label")
       .attr("x", width - 250)
