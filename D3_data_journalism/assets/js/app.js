@@ -57,7 +57,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
   chartGroup.append("g")
     .attr("transform", `translate(0, ${height})`)
     .call(bottomAxis);
- // Append y-axis
+  // Append y-axis
   chartGroup.append("g").call(leftAxis);
   // Create code to build the bar chart using health data extracted 
   chartGroup.selectAll("circle")
@@ -101,8 +101,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
       .attr("class", "label")
       .attr("x", width)
       .style("text-anchor", "end")
-      .text("Poverty Rate (%)");  
- 
+      .text("Poverty Rate (%)");
   }).catch(function(error) {
-    console.log(error);
-  });
+  console.log(error);
+});
