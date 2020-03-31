@@ -1,4 +1,4 @@
-// Define are dimensions, chart's margins and dimensions of chart area (using activiy 2.3 as example)
+// Define are dimensions, chart's margins and dimensions of chart area (using activiies from D3 day 3 as example)
 var svgWidth = 700;
 var svgHeight = 300;
 var margin = {
@@ -23,17 +23,18 @@ var chartGroup = svg.append("g")
 d3.csv("assets/data/data.csv").then(function(healthData) {
   // Print the health data
   console.log(healthData);
-  //function to extract health data
+  //start function to extract income and health data
   healthData.forEach(function(data) {
     data.poverty = +data.poverty;
     data.healthcare = +data.healthcare;
   });
-  // Create scale functions
+  // Creating scales for the chart
   var xLinearScale = d3.scaleLinear().range([0, svgWidth]);
   var yLinearScale = d3.scaleLinear().range([svgHeight, 0]);
-  //  creating axis function, set x/y minimums & max
+  //  creating the axes
   var bottomAxis = d3.axisBottom(xLinearScale);
   var leftAxis = d3.axisLeft(yLinearScale);
+  //set x/y minimums & max
   var xMinimum;
   var xMaximum;
   var yMinimum;
@@ -52,12 +53,12 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
   });
   xLinearScale.domain([xMinimum, xMaximum]);
   yLinearScale.domain([yMinimum, yMaximum]);
-  // Append axis
+  // Append x-axis
   chartGroup.append("g")
-    .attr("transform", `translate(0, ${svgHeight})`)
+    .attr("transform", `translate(0, ${height})`)
     .call(bottomAxis);
-  chartGroup.append("g")
-    .call(leftAxis);
+ // Append y-axis
+  chartGroup.append("g").call(leftAxis);
   // Create code to build the bar chart using health data extracted 
   chartGroup.selectAll("circle")
     .data(healthData)
@@ -78,20 +79,23 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .attr("y", d => yLinearScale(d.healthcare))
     .attr("x", d => xLinearScale(d.poverty))
     .attr("text-anchor","middle")
-    .attr("font-size","10px");
+    .attr("font-size","5px");
   // set y axis
   chartGroup.append("text")
     .attr("transform", "rotate(-90)")
-    .attr("y", margin.left - 50)
-    .attr("x", 0 - (height / 2))
-    .attr("dy", "1em")
-    .classed("aText", true)
+    // .attr("y", margin.left - 50)
+    // .attr("x", 0 - (height / 2))
+    // .attr("dy", "1em")
+    // .classed("aText", true)
     .text("Lacking Healthcare (%)");
   // set x axis
   chartGroup.append("text")
-    .attr("y", height + margin.bottom)
-    .attr("x", width)
-    .attr("dy", "1em")
-    .classed("aText", true)
+    // .attr("y", height + margin.bottom)
+    // .attr("x", width)
+    // .attr("dy", "1em")
+    // .classed("aText", true)
     .text("Poverty Rate (%)");  
-});
+ 
+  }).catch(function(error) {
+    console.log(error);
+  });
