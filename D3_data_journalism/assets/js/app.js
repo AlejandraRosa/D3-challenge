@@ -70,7 +70,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .attr("r", 9)
     .attr("fill", "#16ABCC")
     .attr("opacity", .70);
-  // add texts to the circles
+  // Add texts to the circles
   chartGroup.selectAll("text.text-circles")
     .data(healthData)
     .enter()
@@ -82,7 +82,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .attr("text-anchor","middle")
     .attr("font-size","8px");
   //http://bl.ocks.org/weiglemc/6185069
-  // set y axis
+  // set y axis label
   svg.append("text")
       .attr("class", "y axis")
       .text("Lacks Healthcare (%)")
@@ -92,7 +92,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
       .attr("dy", ".71em")
       .style("text-anchor", "end")
       ;
-  // set x axis
+  // set x axis label
   svg.append("text")
       .attr("class", "x axis")
       .text("In Poverty Rate (%)")
