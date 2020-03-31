@@ -35,10 +35,6 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
   var xAxis = d3.axisBottom(xLinearScale);
   var yAxis = d3.axisLeft(yLinearScale);
   //set x/y minimums & max
-  var xMinimum;
-  var xMaximum;
-  var yMinimum;
-  var yMaximum;
   xMinimum = d3.min(healthData, function(data) {
       return data.poverty -1;
   });
