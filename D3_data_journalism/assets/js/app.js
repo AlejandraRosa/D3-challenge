@@ -1,10 +1,10 @@
 // Define are dimensions, chart's margins and dimensions of chart area (using activiies from D3 day 3 as example)
-var svgWidth = 700;
+var svgWidth = 750;
 var svgHeight = 300;
 var margin = {
   top: 10,
-  right: 40,
-  bottom: 10,
+  right: 30,
+  bottom: 5,
   left: 20
 };
 // Define dimensions of the chart area
@@ -32,8 +32,8 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
   var xLinearScale = d3.scaleLinear().range([0, svgWidth]);
   var yLinearScale = d3.scaleLinear().range([svgHeight, 0]);
   //  creating the axes
-  var bottomAxis = d3.axisBottom(xLinearScale);
-  var leftAxis = d3.axisLeft(yLinearScale);
+  var xAxis = d3.axisBottom(xLinearScale);
+  var yAxis = d3.axisLeft(yLinearScale);
   //set x/y minimums & max
   var xMinimum;
   var xMaximum;
@@ -51,14 +51,20 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
   yMaximum = d3.max(healthData, function(data) {
       return data.poverty;
   });
+  //print mins and max to console
+  console.log(xMaximum);
+  console.log(xMinimum);
+  console.log(yMaximum);
+  console.log(yMinimum);
+  //set mins/max in scale
   xLinearScale.domain([xMinimum, xMaximum]);
   yLinearScale.domain([yMinimum, yMaximum]);
   // Append x-axis
   chartGroup.append("g")
     .attr("transform", `translate(0, ${height})`)
-    .call(bottomAxis);
+    .call(xAxis);
   // Append y-axis
-  chartGroup.append("g").call(leftAxis);
+  chartGroup.append("g").call(yAxis);
   // Create code to build the bar chart using health data extracted 
   chartGroup.selectAll("circle")
     .data(healthData)
@@ -82,26 +88,20 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .attr("font-size","8px");
   //http://bl.ocks.org/weiglemc/6185069
   // set y axis
-  chartGroup.append("g")
-    .attr("class", "y axis")
-    .call(yAxis)
-    .append("text")
+  svg.append("text")
       .attr("class", "label")
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
       .attr("dy", ".71em")
-      .style("text-anchor", "end")
+      .style("text-anchor", "middle")
       .text("Lacking Healthcare (%)");
   // set x axis
-  chartGroup.append("g")
-    .attr("class", "x axis")
+  svg.append("text")
+      .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
-    .append("text")
       .attr("class", "label")
       .attr("x", width)
-      .style("text-anchor", "end")
+      .attr("y", -6)
+      .style("text-anchor", "middle")
       .text("Poverty Rate (%)");
-  }).catch(function(error) {
-  console.log(error);
 });
