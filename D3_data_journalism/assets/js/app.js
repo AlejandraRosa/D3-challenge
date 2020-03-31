@@ -40,16 +40,16 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
   var yMinimum;
   var yMaximum;
   xMinimum = d3.min(healthData, function(data) {
-      return data.healthcare;
+      return data.poverty;
   });
   xMaximum = d3.max(healthData, function(data) {
-      return data.healthcare;
+      return data.poverty;
   });
   yMinimum = d3.min(healthData, function(data) {
-      return data.poverty;
+      return data.healthcare;
   });
   yMaximum = d3.max(healthData, function(data) {
-      return data.poverty;
+      return data.healthcare;
   });
   //print mins and max to console
   console.log(xMaximum);
@@ -69,8 +69,8 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .data(healthData)
     .enter()
     .append("circle")
-    .attr("cx", d => xLinearScale(d.healthcare ))
-    .attr("cy", d => yLinearScale(d.poverty ))
+    .attr("cx", d => xLinearScale(d.poverty))
+    .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", 10)
     .attr("fill", "#16ABCC")
     .attr("opacity", .70);
@@ -81,15 +81,15 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .append("text")
     .classed("stateText", true)
     .text(d => d.abbr)
-    .attr("x", d => xLinearScale(d.healthcare))
-    .attr("y", d => yLinearScale(d.poverty))
+    .attr("x", d => xLinearScale(d.poverty))
+    .attr("y", d => yLinearScale(d.healthcare))
     .attr("text-anchor","middle")
     .attr("font-size","8px");
   //http://bl.ocks.org/weiglemc/6185069
   // set y axis
   svg.append("text")
       .attr("class", "y axis")
-      .text("Poverty Rate (%)")
+      .text("Lacking Healthcare (%)")
       .attr("transform", "rotate(-90)")
       .attr("y", 10)
       .attr("dy", ".71em")
@@ -98,7 +98,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
   // set x axis
   svg.append("text")
       .attr("class", "x axis")
-      .text("Lacking Healthcare (%)")
+      .text("Poverty Rate (%)")
       .attr("transform", "translate(0," + height + ")")
       .attr("class", "label")
       .attr("x", width - 250)
