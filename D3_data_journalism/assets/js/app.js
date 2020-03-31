@@ -94,12 +94,14 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
       .text("Lacking Healthcare (%)");
   // set x axis
   chartGroup.append("g")
-    // .attr("y", height + margin.bottom)
-    // .attr("x", width)
-    // .attr("dy", "1em")
-    // .classed("aText", true)
-    style("text-anchor", "end")
-    .text("Poverty Rate (%)");  
+    .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", width)
+      .style("text-anchor", "end")
+      .text("Poverty Rate (%)");  
  
   }).catch(function(error) {
     console.log(error);
